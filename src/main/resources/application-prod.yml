@@ -1,0 +1,48 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  config:
+    import:
+      - file:${user.home}/myblog/config/application-security.yml
+      - file:${user.home}/myblog/config/application-mysql.yml
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
+
+  security:
+    url:
+      login: /api/auth/login
+      signup: /api/auth/signup
+      logout: /api/auth/logout
+    exclude:
+      url:
+        - GET /h2-console/**
+        - POST /api/auth/signup
+        - GET /api/auth/logout
+        - GET /api/post/**
+        - GET /api/file/**
+
+file:
+  path: ${user.home}/myblog/images/
+
+#logging:
+#  file:
+#    path: ${user.home}/logs
+#    name: ./logs/Myblog-Backend.log
+#  logback:
+#    rollingpolicy:
+#      max-file-size: 100MB
+#      max-history: 30
+#  pattern:
+#    console:

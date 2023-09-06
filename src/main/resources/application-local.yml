@@ -1,0 +1,75 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    hikari:
+      username: sa
+      password:
+      url: jdbc:h2:mem:blog
+#    url: jdbc:log4jdbc:h2:mem:blog
+
+#    driver-class-name: net.sf.log4jdbc.DriverSpy
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  config:
+    import:
+      - classpath:/log4jdbc.log4j2.properties
+  security:
+    url:
+      login: /api/auth/login
+      signup: /api/auth/signup
+      logout: /api/auth/logout
+    jwt:
+      header: Token
+      secret: spring-security-jwt-secret-key-my-blog-project-should-be-bigger-than-512bits
+      token-validity-in-seconds: 86400000
+    exclude:
+      url:
+        - GET /h2-console/**
+        - POST /h2-console/**
+        - POST /api/auth/signup
+        - GET /api/auth/logout
+        - GET /api/post/**
+        - GET /api/file/**
+        - GET /api/category/**
+        - /swagger-resources/**
+        - /swagger-ui/**
+        - /v3/**
+
+file:
+  path: /Users/dongwoo-yang/spring-file/
+
+logging:
+  file:
+    path: ${user.home}/logs
+    name: ./logs/Myblog-Backend.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 30
+  pattern:
+    console:
+      file-name-pattern: Myblog-Backend.%d{yyyy-MM-dd}.log
+  level:
+    jdbc: off
+    sqlonly: off
+    sqltiming: info
+    resultsettable: info
+    audit: off
+    resultset: info
+    connection: off
+
+
+security:
+  jwt:
+    header: Token
+    secret: spring-security-jwt-secret-key-my-blog-project-should-be-bigger-than-512bits
+    token-validity-in-seconds: 86400000

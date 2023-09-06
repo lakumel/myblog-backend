@@ -1,0 +1,29 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  config:
+    import: classpath:/application-local.yml
+
+file:
+  path: /Users/dongwoo-yang/spring-file/
+
+security:
+  url:
+    login: /api/login
+    signup: /api/signup
+    logout: /api/logout
+  jwt:
+    header: Token
+    secret: spring-security-jwt-secret-key-my-blog-project-should-be-bigger-than-512bits
+    token-validity-in-seconds: 86400000
+
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
